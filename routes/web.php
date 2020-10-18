@@ -17,5 +17,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/','IndexController@index');
 
 Route::get('admin', function(){
-    return view('layouts.admin.layout1');
+    return view('admin');
 });
