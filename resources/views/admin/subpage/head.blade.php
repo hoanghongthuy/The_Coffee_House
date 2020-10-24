@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="{{url('AdminLTE')}}/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
     <!-- iCheck -->
     <link rel="stylesheet" href="{{url('AdminLTE')}}/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+      <!-- DataTables -->
+    <link rel="stylesheet" href="{{url('AdminLTE')}}/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="{{url('AdminLTE')}}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <!-- JQVMap -->
     <link rel="stylesheet" href="{{url('AdminLTE')}}/plugins/jqvmap/jqvmap.min.css">
     <!-- Theme style -->
