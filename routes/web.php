@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/','IndexController@index');
 
+<<<<<<< HEAD
 Route::group(['prefix'=>'product'], function(){
     Route::get('/', 'user\productController@show');
     Route::get('detail/{$id}', 'user\productController@detail');
@@ -23,3 +24,7 @@ Route::group(['prefix'=>'product'], function(){
 Route::get('admin', function(){
     return view('admin');
 });
+=======
+Route::get('admin', 'admin\IndexAdmin@index');
+Route::resource('admin/product', 'admin\ProductController');
+>>>>>>> 3f1b6a9f16239bb633aeec6420f110f43aa09df2

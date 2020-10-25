@@ -27,8 +27,40 @@
 <!-- overlayScrollbars -->
 <script src="{{url('AdminLTE')}}/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE App -->
+
+<script src="../../plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- DataTables -->
+<script src="{{url('AdminLTE')}}/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="{{url('AdminLTE')}}/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="{{url('AdminLTE')}}/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="{{url('AdminLTE')}}/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="{{url('AdminLTE')}}/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
 <script src="{{url('AdminLTE')}}/dist/js/adminlte.js"></script>
+
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{url('AdminLTE')}}/dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{url('AdminLTE')}}/dist/js/demo.js"></script>
+
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true,
+      "autoWidth": false,
+    });
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+  $("input[data-bootstrap-switch]").each(function(){
+      $(this).bootstrapSwitch('state', $(this).prop('checked'));
+    });
+</script>
