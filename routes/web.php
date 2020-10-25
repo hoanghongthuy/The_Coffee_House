@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\IndexController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,6 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/','IndexController@index');
+
+Route::group(['prefix'=>'product'], function(){
+    Route::get('/', 'user\productController@show');
+    Route::get('detail/{$id}', 'user\productController@detail');
+});
 
 Route::get('admin', function(){
     return view('admin');

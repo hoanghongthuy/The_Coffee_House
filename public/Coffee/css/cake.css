@@ -1317,7 +1317,7 @@ ol {
   Shop
 -----------------------*/
 .shop {
-  padding-top: 80px;
+  padding-top: 50px;
 }
 
 .shop__option {
@@ -1447,6 +1447,9 @@ ol {
   color: #888888;
 }
 
+.shop__last__option {
+  margin-bottom: 80px;
+}
 .shop__pagination a {
   display: inline-block;
   color: #000000;
@@ -1468,6 +1471,16 @@ ol {
   top: 2px;
 }
 .shop__pagination a:hover {
+  background: #000000;
+  color: #ffffff;
+}
+
+.shop__pagination a:focus {
+  background: #000000;
+  color: #ffffff;
+}
+
+.shop__pagination .active {
   background: #000000;
   color: #ffffff;
 }
