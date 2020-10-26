@@ -8,6 +8,6 @@ use Illuminate\Http\Request;
 class IndexAdmin extends Controller
 {
     public function index(){
-    	return View("admin");
+    	return View("admin.admin");
     }
 }

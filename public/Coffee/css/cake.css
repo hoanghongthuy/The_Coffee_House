@@ -1318,6 +1318,7 @@ ol {
 -----------------------*/
 .shop {
   padding-top: 50px;
+  background-color: #F5F5F5;
 }
 
 .shop__option {
@@ -1326,7 +1327,8 @@ ol {
 
 .shop__option__search form {
   border: 1px solid #e1e1e1;
-  height: 46px;
+  padding: 10px 0 10px 10px;
+  /* height: 46px; */
   position: relative;
 }
 .shop__option__search form .nice-select {
