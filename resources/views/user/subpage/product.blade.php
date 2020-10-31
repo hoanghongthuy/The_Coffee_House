@@ -22,7 +22,7 @@
                                 <h6><a href="{{url('product/detail')}}/{{$item->tenkhongdau}}">{{$item->tensanpham}}</a></h6>
                                 <div class="product__item__price">{{number_format($item->gia)}} ₫</div>
                                 <div class="cart_add">
-                                    <a href="#">Thêm vào giỏ hàng</a>
+                                    <span class="pcursor" onclick="addCart('{{$item->id}}')">Thêm vào giỏ hàng</span>
                                 </div>
                             </div>
                         </div>

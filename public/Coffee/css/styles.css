@@ -1170,3 +1170,6 @@ footer {
 .category_menu {
   background-color: #F5F5F5;
 }
+.pcursor{
+  cursor: pointer;
+}

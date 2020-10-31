@@ -22,26 +22,44 @@ Route::group(['prefix'=>'product'], function(){
 
 Route::group(['prefix'=>'cart'],function(){
     Route::get('/',function(){
-        return view('cart');
+        return view('user.cart');
     })->name('cart');
 
     Route::get('add/{id}',function($id){
-        $data = DB::table('sach')->select('masach','tensach','gia','hinh')->where(['masach'=>$id])->first();
+        $data = DB::table('product_view')->select('id','tensanpham','gia','hinh')->where(['id'=>$id])->first();
         if ($data){
-            $sp = ['id'=>$data->masach,
-                    'name'=>$data->tensach,
+            $sp = ['id'=>$data->id,
+                    'name'=>$data->tensanpham,
                     'qty'=>1,
                     'price'=>$data->gia,
                     'options'=>['hinh'=>$data->hinh]
             ];
             Cart::add($sp);
         }
-        return redirect('cart');
+        return 'Đã thêm thành công';
+    })->where('id','[a-z0-9]+');
+    Route::get('addpush',function(){
+        $rowId = $_GET['id'];
+        $sl = $_GET['sl']; 
+        Cart::update($rowId, $sl);
+        $data = Cart::get($rowId);
+        $tong = $data->qty * $data->price;
+        return json_encode(
+            [
+                'tong' => $tong,
+                'sum' => Cart::total(),
+                'dem' => Cart::count() 
+            ]
+        );
     })->where('id','[a-z0-9]+');
 
     Route::get('delete/{id}',function($id){
         Cart::remove($id);
-        return redirect('cart');
+        $data = array(
+            'tong'=>Cart::total(),
+            'dem'=>Cart::count()
+        );
+        return json_encode($data);
     });
 
     Route::get('deleteAll', function(){

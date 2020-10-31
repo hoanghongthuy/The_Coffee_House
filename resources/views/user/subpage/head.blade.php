@@ -10,6 +10,6 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="{{url('Coffee')}}/croppie.css" />
         <link rel="stylesheet" type="text/css" href="{{url('Coffee')}}/css/owl.carousel.min.css">
-        <link rel="stylesheet" href="{{url('Coffee')}}/css/cake.css">
+        <link rel="stylesheet" href="{{url('Coffee')}}/css/cake.css">   
         <link rel="stylesheet" href="{{url('Coffee')}}/css/styles.css">
     </head>
