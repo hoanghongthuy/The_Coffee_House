@@ -23,40 +23,25 @@
     <section class="shop spad">
         <div class="container">
             <div class="shop__option">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-3 col-md-6 col-sm-6">
-                            <h3>Menu</h3>
-                            <nav class="category_menu">
-                                @foreach ($category as $item)
-                                <a class="nav-link active" href="#">{{$item->cat_name}}</a>
-                                @endforeach
-                            </nav>
+            <div class="row">
+                @foreach ($data as $item)
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="product__item">
+                        <div class="product__item__pic set-bg" data-setbg="{{url('Coffee/images/product')}}/{{$item->hinh}}">
+                            <div class="product__label">
+                                <span>{{$item->cat_name}}</span>
+                            </div>
                         </div>
-                        <div class="col-lg-9 col-md-6 col-sm-6">
-                            <div class="row">
-                                @foreach ($data as $item)
-                                <div class="col-lg-3 col-md-6 col-sm-6">
-                                    <div class="product__item">
-                                        <div class="product__item__pic set-bg" data-setbg="{{url('Coffee/images/product')}}/{{$item->hinh}}">
-                                            <div class="product__label">
-                                                <span>{{$item->cat_name}}</span>
-                                            </div>
-                                        </div>
-                                        <div class="product__item__text">
-                                            <h6><a href="#">{{$item->tensanpham}}</a></h6>
-                                            <div class="product__item__price">{{number_format($item->gia)}} ₫</div>
-                                            <div class="cart_add">
-                                                <a href="#">Thêm vào giỏ hàng</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                @endforeach
+                        <div class="product__item__text">
+                            <h6><a href="{{url('')}}/product/detail/{{$item->tenkhongdau}}">{{$item->tensanpham}}</a></h6>
+                            <div class="product__item__price">{{number_format($item->gia)}} ₫</div>
+                            <div class="cart_add">
+                                <a href="#">Thêm vào giỏ hàng</a>
                             </div>
                         </div>
                     </div>
                 </div>
+                @endforeach
             </div>
             <div class="shop__last__option">
                 <div class="row">
