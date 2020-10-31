@@ -12,7 +12,7 @@
             </div>
         </div>
         <div class="offcanvas__logo">
-            <a href="./index.html"><img src="{{url('Coffee')}}/images/logo.png" alt=""></a>
+            <a href="{{url("/")}}"><img src="{{url('Coffee')}}/images/logo.png" alt=""></a>
         </div>
         <div id="mobile-menu-wrap"></div>
         <div class="offcanvas__option">
