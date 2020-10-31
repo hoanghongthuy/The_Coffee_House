@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use DB;
+use Illuminate\Support\Facades\File;
 
 class ProductController extends Controller
 {
@@ -13,10 +14,13 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct(){
+        $this->title = 'product';
+    }
     public function index()
     {
-        $data=DB::table('product')->get();
-        return view('admin.product.index',['data'=>$data]);
+        $data=DB::table('product')->orderByRaw('id DESC')->offset(10)->limit(5)->get();
+        return view('admin.product.index',['data'=>$data,'title'=>$this->title]);
     }
 
     /**
@@ -26,7 +30,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('admin.product.create');
+        $loai = DB::table('category')->get();
+        return view('admin.product.create',["loai"=>$loai ,'title'=>$this->title]);
     }
 
     /**
@@ -72,40 +77,39 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $request->validate(
-            [
-                
+            [ 
                 'tensanpham' => 'required|min:2|max:255|unique:product,tensanpham',
-                // 'Hinhdaidien' => 'image|required',
                 'mota' => 'required|min:10|max:255',
-                'gia' => 'required|integer',
-                'giakhuyenmai' => 'required|integer',
+                'gia' => 'integer',
+                'giakhuyenmai' => 'integer',
             ],
             [
-                'tensanpham.required' => "Phai nhap ten sach",
-                'tensanpham.min' => "ten sach phai toi thieu 2 ky tu",
-                'tensanpham.unique' => "Ten sach phai duy nhat",
-                'mota' => "Mo ta kg phi hop",
+                'tensanpham.required' => "Phải nhập tên sản phẩm",
+                'tensanpham.min' => "Tên sản phẩm tối thiểu 2 ký tự",
+                'tensanpham.unique' => "Tên sản phẩm là duy nhât",
+                'mota' => "Phải nhập mô tả từ tối thiểu 10 ký tự",
+                'gia' => "Giá sản phẩm phải là số",
+                'giakhuyenmai' =>"Giá sản phẩm phải là số",
             ]
         );
         $data =[
-                'tensanpham'=>$request->tensanpham,
-                'mota'=>$request->mota,
-                'gia'=>$request->gia,
-                'giakhuyenmai'=>$request->giakhuyenmai,
-                'id_cat'=>$request->id_cat,
-                'tenkhongdau'=> $this->changeTitle($request->tenkhongdau),
-                ]; 
-         
+            'tensanpham'=>$request->tensanpham,
+            'mota'=>$request->mota,
+            'gia'=>$request->gia,
+            'giakhuyenmai'=>$request->giakhuyenmai,
+            'id_cat'=>$request->id_cat,
+            'tenkhongdau'=> $this->changeTitle($request->tensanpham),
+            ];
             if ($request->hasFile('hinh'))
             {
                 $tam = $request->file('hinh');//getClientOriginalName
                 $tenfile = time().'-'.$tam->getClientOriginalName();
                 $data['hinh']= $tenfile;
-                $tam->move('images/product/',$tenfile);;
+                $tam->move("Coffee/images/product/",$tenfile);
+                
             }
-            
             DB::table('product')->insert($data);
-            return redirect('admin/product/')->with( [ 'alert'=>'Đã thành công']);
+            return redirect('admin/product/')->with( [ 'alert'=>'Đã thành công','title'=>$this->title]);
     }
 
     /**
@@ -117,9 +121,10 @@ class ProductController extends Controller
     public function show($id)
     {
         $r = DB::table('product')->where(['id'=>$id])->first();
+        $loai = DB::table('category')->get();
         if ($r)
         {
-            return View('admin.product.show', ['data'=>$r]);
+            return View('admin.product.show', ['data'=>$r,"loai"=>$loai,'title'=>$this->title]);
         }
         else 
             {
@@ -133,7 +138,7 @@ class ProductController extends Controller
         $loai = DB::table('category')->get();
         if ($r)
         {
-            return View('admin.product.edit', ['data'=>$r,"loai"=>$loai]);
+            return View('admin.product.edit', ['data'=>$r,"loai"=>$loai,'title'=>$this->title]);
         }
         else 
             {
@@ -144,40 +149,39 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate(
-        [
-             'tensanpham' => "required|min:2|max:255|unique:sach,masach,tensanpham,$id",
-            // 'Hinhdaidien' => 'image|required',
-             'mota' => 'required|min:120|max:255',
-           
-        ],
-        [
-            'tensanpham.required' => "Phai nhap ten sach",
-             'tensanpham.min' => "ten sach phai toi thieu 2 ky tu",
-             'tensanpham.unique' => "Ten sach phai duy nhat",
-             'mota' => "Mo ta kg phi hop",
-          
-        ]
-    );
-
-    
-    $data =[
-            'tensanpham'=>$request->tensach,
+            [ 
+                'tensanpham' => 'required|min:2|max:255',
+                'mota' => 'required|min:10|max:255',
+                'gia' => 'integer',
+                'giakhuyenmai' => 'integer',
+            ],
+            [
+                'tensanpham.required' => "Phải nhập tên sản phẩm",
+                'tensanpham.min' => "Tên sản phẩm tối thiểu 2 ký tự",
+                'tensanpham.unique' => "Tên sản phẩm là duy nhât",
+                'mota' => "Phải nhập mô tả từ tối thiểu 10 ký tự",
+                'gia' => "Giá sản phẩm phải là số",
+                'giakhuyenmai' =>"Giá sản phẩm phải là số",
+            ]
+        );
+        $data =[
+            'tensanpham'=>$request->tensanpham,
+            'mota'=>$request->mota,
             'gia'=>$request->gia,
             'giakhuyenmai'=>$request->giakhuyenmai,
-            'mota'=>$request->mota,
-            ]; 
-      //  dd($data);
+            'id_cat'=>$request->id_cat,
+            'tenkhongdau'=> $this->changeTitle($request->tensanpham),
+            ];
         if ($request->hasFile('hinh'))
         {
             $tam = $request->file('hinh');//getClientOriginalName
             $tenfile = time().'-'.$tam->getClientOriginalName();
             $data['hinh']= $tenfile;
-            $tam->move('images/product/',$tenfile);
-            File::delete('images/product/'.DB::table('sach')->where('id', $id)->value('hinh'));
+            $tam->move('public/Coffee/images/product',$tenfile);
+            File::delete('images/product/'.DB::table('product')->where('id', $id)->value('hinh'));
         }
-        
         DB::table('product')->where('id', $id)->update($data);
-        return redirect('admin/product/')->with( [ 'alert'=>'Da sua']);
+        return redirect('admin/product/')->with( [ 'alert'=>'Da sua','title'=>$this->title]);
     }
 
     /**
